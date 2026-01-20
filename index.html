@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zaya Hussain - Diploma CSE Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: 
+                /* Multi-layered animated gradients [web:1] */
+                linear-gradient(-45deg, #000000, #1a1a1a, #2d2d2d, #404040, #1a1a1a, #000000),
+                radial-gradient(circle at 20% 80%, rgba(255,215,0,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,215,0,0.04) 0%, transparent 50%),
+                /* Animated overlay gradients [web:2] */
+                linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.03) 50%, transparent 70%),
+                linear-gradient(-45deg, transparent 30%, rgba(255,215,0,0.02) 50%, transparent 70%);
+            background-size: 400% 400%, 300px 300px, 400px 400px, 100px 100px, 150px 150px;
+            animation: 
+                gradientShift 12s ease infinite,
+                bgPulse 6s ease-in-out infinite alternate,
+                overlayShift 20s linear infinite reverse,
+                gradientWave 8s ease-in-out infinite alternate;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* NEW: Electricity/Glitch Background */
+        .electric-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255,215,0,0.01) 2px,
+                    rgba(255,215,0,0.01) 4px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255,215,0,0.01) 2px,
+                    rgba(255,215,0,0.01) 4px
+                );
+            animation: electricGrid 15s linear infinite, gridMove 25s linear infinite;
+        }
+
+        /* Matrix Rain Canvas */
+        #matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.12;
+        }
+
+        /* NEW: Floating Hologram Rings */
+        .holo-rings {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .holo-ring {
+            position: absolute;
+            border: 2px solid rgba(255,215,0,0.3);
+            border-radius: 50%;
+            animation: holoFloat 12s infinite linear;
+        }
+
+        header {
+            background: 
+                /* Multi-gradient shimmer [web:3] */
+                linear-gradient(45deg, rgba(0,0,0,0.97), rgba(10,10,20,0.97)),
+                linear-gradient(90deg, transparent, rgba(255,215,0,0.12), transparent),
+                conic-gradient(from 0deg at 50% 50%, rgba(255,215,0,0.08), transparent 60%);
+            background-size: 100% 100%, 200% 100%, 200% 200%;
+            backdrop-filter: blur(30px);
+            padding: 120px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid transparent;
+            background-clip: padding-box, border-box, border-box;
+            animation: 
+                headerFloat 5s ease-in-out infinite,
+                shimmer 2.5s ease-in-out infinite,
+                headerGlitch 10s linear infinite;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                conic-gradient(from 0deg, rgba(255,215,0,0.2), transparent 50%);
+            animation: rotateGlow 10s linear infinite reverse;
+            filter: blur(25px);
+            mask: radial-gradient(circle at center, transparent 30%, black 70%);
+        }
+
+        header h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            font-family: 'Orbitron', monospace;
+            margin-bottom: 20px;
+            background: 
+                linear-gradient(45deg, #ffd700, #ffed4a, #ffffff, #ffd700, #ffed4a),
+                linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            background-size: 400% 400%, 100% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: 
+                glowText 1.8s ease-in-out infinite alternate,
+                gradientFlow 3s ease infinite,
+                textShimmer 4s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+            text-shadow: none;
+        }
+
+        /* NEW: Cursor trail effect */
+        .cursor-trail {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #ffd700, transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 0 20px #ffd700;
+            animation: cursorGlow 0.5s ease-out;
+            transform: translate(-50%, -50%);
+        }
+
+        header p {
+            font-size: 1.6rem;
+            opacity: 0.95;
+            font-weight: 400;
+            font-family: 'Share Tech Mono', monospace;
+            animation: 
+                fadeInUp 1.5s ease 0.5s both,
+                pulseGlow 2.5s ease-in-out infinite,
+                waveEffect 3s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+            letter-spacing: 2px;
+        }
+
+        nav {
+            background: 
+                rgba(0,0,0,0.95),
+                linear-gradient(90deg, rgba(0,0,0,0.95), rgba(255,215,0,0.08), rgba(0,0,0,0.95)),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,215,0,0.1) 2px, rgba(255,215,0,0.1) 4px);
+            backdrop-filter: blur(25px);
+            display: flex;
+            justify-content: center;
+            padding: 25px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-size: 0 100%, 200% 100%, 100% 100%;
+            animation: 
+                navShimmer 3s ease-in-out infinite,
+                navFloat 6s ease-in-out infinite;
+            border-bottom: 2px solid rgba(255,215,0,0.3);
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 35px;
+            font-weight: 700;
+            font-size: 1.15rem;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-family: 'Share Tech Mono', monospace;
+            letter-spacing: 1px;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent, rgba(255,215,0,0.4), transparent);
+            border-radius: 50px;
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+
+        nav a:hover::before {
+            transform: scaleX(1);
+        }
+
+        nav a:hover {
+            color: #ffd700;
+            transform: translateY(-4px) scale(1.05);
+            text-shadow: 0 0 25px #ffd700;
+            box-shadow: 0 10px 30px rgba(255,215,0,0.4);
+        }
+
+        /* NEW ANIMATIONS */
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%, 0% 0%, 0% 0%, 0% 0%, 0% 0%; }
+            25% { background-position: 100% 50%, 50px 50px, -50px -50px, 100px 100px, -100px -100px; }
+            50% { background-position: 100% 0%, 100px 0%, -100px 0%, 200px 200px, -200px -200px; }
+            75% { background-position: 0% 100%, -50px -50px, 50px 50px, -100px -100px, 100px 100px; }
+        } /* Multi-layer gradient shift [web:1] */
+
+        @keyframes bgPulse {
+            0% { filter: brightness(1) contrast(1) hue-rotate(0deg); }
+            100% { filter: brightness(1.15) contrast(1.1) hue-rotate(10deg); }
+        }
+
+        @keyframes overlayShift {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+
+        @keyframes gradientWave {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        @keyframes electricGrid {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+            100% { opacity: 0.3; }
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(20px, 20px); }
+            50% { transform: translate(40px, 0); }
+            75% { transform: translate(20px, -20px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        @keyframes holoFloat {
+            0% { 
+                width: 100px; height: 100px; 
+                transform: translateY(100vh) rotate(0deg) scale(0.5);
+                opacity: 0; 
+            }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { 
+                width: 200px; height: 200px;
+                transform: translateY(-100px) rotate(720deg) scale(1);
+                opacity: 0; 
+            }
+        }
+
+        @keyframes headerFloat {
+            0%, 100% { transform: translateY(0px) scale(1) rotateX(0deg); }
+            33% { transform: translateY(-10px) scale(1.02) rotateX(2deg); }
+            66% { transform: translateY(-5px) scale(1.01) rotateX(-1deg); }
+        }
+
+        @keyframes headerGlitch {
+            0%, 95% { transform: translate(0); }
+            97% { transform: translate(-2px, 2px); }
+            98% { transform: translate(2px, -1px); }
+            99% { transform: translate(-1px, 1px); }
+            100% { transform: translate(1px, -2px); }
+        }
+
+        .card {
+            background: rgba(20, 20, 20, 0.92);
+            padding: 45px 35px;
+            border-radius: 30px;
+            border: 3px solid rgba(255, 215, 0, 0.25);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(255,215,0,0.15), transparent 30%);
+            animation: cardRing 8s linear infinite paused;
+            opacity: 0;
+        }
+
+        .card:hover::before {
+            animation-play-state: running;
+            opacity: 1;
+        }
+
+        /* Rest of your existing styles remain the same... */
+        .skills, .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+        section { padding: 100px 20px; max-width: 1200px; margin: auto; position: relative; }
+        h2 { color: #ffd700; font-size: 3rem; font-weight: 700; margin-bottom: 50px; text-align: center; position: relative; }
+        h2::after { content: ''; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); width: 100px; height: 5px; background: linear-gradient(90deg, transparent, #ffd700, transparent); border-radius: 3px; animation: underlineGlow 2s ease-in-out infinite alternate; }
+        .typing-text { border-right: 4px solid #ffd700; animation: glitchBlink 0.6s infinite; font-weight: 500; letter-spacing: 1px; }
+        .particles, .scanlines { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
+        .particle { position: absolute; width: 6px; height: 6px; background: radial-gradient(circle, #ffd700, transparent); border-radius: 50%; animation: float 8s infinite linear, particleGlow 2s ease-in-out infinite alternate; box-shadow: 0 0 15px #ffd700; }
+        .scanline { position: absolute; height: 1px; background: linear-gradient(90deg, transparent, #ffd700, transparent); animation: scan 8s linear infinite; }
+        footer { text-align: center; padding: 50px; background: rgba(0, 0, 0, 0.95); border-top: 3px solid #ffd700; position: relative; overflow: hidden; }
+        
+        /* Scroll animations */
+        .card { opacity: 0; transform: translateY(60px) scale(0.95); }
+        .card.animate { opacity: 1; transform: translateY(0) scale(1); transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+
+        /* Additional keyframe definitions */
+        @keyframes cardRing { to { transform: rotate(360deg); } }
+        @keyframes textShimmer { 0% { background-position: 0% 0%; } 100% { background-position: 100% 100%; } }
+        @keyframes waveEffect { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+        @keyframes navFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+        @keyframes cursorGlow { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(2); } }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 { font-size: 3rem; }
+            nav a { margin: 0 15px; font-size: 1rem; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Enhanced Background Layers -->
+    <div class="electric-bg"></div>
+    <div class="holo-rings" id="holoRings"></div>
+    
+    <!-- Matrix Background -->
+    <canvas id="matrix-bg"></canvas>
+    
+    <!-- Multiple Particle Layers -->
+    <div class="particles" id="particles1"></div>
+    <div class="particles" id="particles2"></div>
+    <div class="scanlines" id="scanlines"></div>
+
+    <header>
+        <h1>Zaya Hussain</h1>
+        <p class="typing-text" id="typingText">Diploma Student | Computer Science Engineering</p>
+    </header>
+
+    <!-- Rest of HTML structure remains the same -->
+    <nav>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p style="text-align:center; max-width:800px; margin:auto; font-size:1.2rem; line-height:1.8;">
+            Diploma student in Computer Science Engineering from Paralakhemundi.<br>
+            Passionate about web development, databases, algorithms, and full-stack development.<br>
+            Always exploring new technologies and building innovative solutions.
+        </p>
+    </section>
+
+    <section id="skills">
+        <h2>Technical Skills</h2>
+        <div class="skills">
+            <div class="card"><i class="fas fa-code"></i><h3>Web Development</h3><p>HTML5, CSS3, JavaScript, React, TailwindCSS</p></div>
+            <div class="card"><i class="fas fa-database"></i><h3>Databases</h3><p>MySQL, MongoDB, SQLite</p></div>
+            <div class="card"><i class="fas fa-cogs"></i><h3>Backend</h3><p>Node.js, Express, Python, PHP, REST APIs</p></div>
+            <div class="card"><i class="fas fa-mobile-alt"></i><h3>Mobile</h3><p>React Native, Flutter</p></div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="projects">
+            <div class="card"><i class="fab fa-linux"></i><h3>Locsentra</h3><p>Advanced Linux system monitoring dashboard with real-time metrics</p></div>
+            <div class="card"><i class="fas fa-book"></i><h3>Library System</h3><p>Full-stack library management with barcode scanning & analytics</p></div>
+            <div class="card"><i class="fas fa-shopping-cart"></i><h3>E-Commerce Platform</h3><p>MERN stack online store with payment integration</p></div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact</h2>
+        <p style="text-align:center; font-size:1.3rem;">
+            <a href="mailto:zayamd402@gmail.com" style="color:#ffd700; margin:0 20px; font-weight:600;">📧 zayamd402@gmail.com</a><br><br>
+            <a href="https://github.com/zayamd402-oss" target="_blank" style="color:#ffd700; margin:0 20px; font-weight:600;">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+        </p>
+    </section>
+
+    <footer>
+        © 2026 Zaya Hussain | Diploma Computer Science Engineering | Made with <i class="fas fa-heart" style="color:#ff4757;"></i> & CSS Art
+    </footer>
+
+    <script>
+        // Mouse cursor trail [NEW]
+        function createCursorTrail(e) {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            trail.style.left = e.clientX + 'px';
+            trail.style.top = e.clientY + 'px';
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 500);
+        }
+        document.addEventListener('mousemove', createCursorTrail);
+
+        // Enhanced typing with glitch effect
+        const texts = ["Diploma CSE Student", "Full-Stack Developer", "Tech Enthusiast"];
+        let textIndex = 0, charIndex = 0, deleting = false;
+        const el = document.getElementById("typingText");
+
+        function typeWriter() {
+            if (deleting) {
+                el.textContent = texts[textIndex].slice(0, charIndex - 1);
+                charIndex--;
+            } else {
+                el.textContent = texts[textIndex].slice(0, charIndex + 1);
+                charIndex++;
+            }
+
+            const typeSpeed = deleting ? 50 : 100;
+            setTimeout(() => {
+                if (!deleting && charIndex === texts[textIndex].length) {
+                    deleting = true;
+                    setTimeout(typeWriter, 1500);
+                } else if (deleting && charIndex === 0) {
+                    deleting = false;
+                    textIndex = (textIndex + 1) % texts.length;
+                    setTimeout(typeWriter, 500);
+                } else {
+                    typeWriter();
+                }
+            }, typeSpeed + Math.random() * 30);
+        }
+        setTimeout(typeWriter, 1000);
+
+        // Hologram rings generator [NEW]
+        function createHoloRing() {
+            const ring = document.createElement('div');
+            ring.className = 'holo-ring';
+            ring.style.left = Math.random() * 100 + '%';
+            ring.style.top = '100vh';
+            ring.style.animationDuration = (8 + Math.random() * 8) + 's';
+            ring.style.width = ring.style.height = (80 + Math.random() * 120) + 'px';
+            document.getElementById('holoRings').appendChild(ring);
+            setTimeout(() => ring.remove(), 20000);
+        }
+        setInterval(createHoloRing, 3000);
+
+        // Existing particle, scanline, matrix code remains the same...
+        function createParticle(containerId, size = 6, speed = 8) {
+            const container = document.getElementById(containerId);
+            const p = document.createElement("div");
+            p.className = "particle";
+            p.style.left = Math.random() * 100 + "%";
+            p.style.width = p.style.height = size + "px";
+            p.style.animationDuration = (speed + Math.random() * 4) + "s";
+            container.appendChild(p);
+            setTimeout(() => p.remove(), 12000);
+        }
+        setInterval(() => createParticle("particles1", 6, 8), 200);
+        setInterval(() => createParticle("particles2", 4, 12), 350);
+
+        function createScanline() {
+            const container = document.getElementById("scanlines");
+            const scan = document.createElement("div");
+            scan.className = "scanline";
+            scan.style.top = Math.random() * 100 + "%";
+            scan.style.animationDuration = (6 + Math.random() * 4) + "s";
+            container.appendChild(scan);
+            setTimeout(() => scan.remove(), 16000);
+        }
+        setInterval(createScanline, 1200);
+
+        // Matrix rain (existing)
+        function initMatrix() {
+            const canvas = document.getElementById('matrix-bg');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+            const fontSize = 12;
+            const columns = canvas.width / fontSize;
+            const drops = Array(Math.floor(columns)).fill(1);
+
+            function draw() {
+                ctx.fillStyle = 'rgba(0, 4, 17, 0.04)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = `rgba(255, 215, 0, 0.6)`;
+                ctx.font = `${fontSize}px 'Orbitron', monospace`;
+                drops.forEach((y, i) => {
+                    const text = chars[Math.floor(Math.random() * chars.length)];
+                    ctx.fillText(text, i * fontSize, y * fontSize);
+                    if (y * fontSize > canvas.height && Math.random() > 0.98) drops[i] = 0;
+                    drops[i]++;
+                });
+            }
+            function animate() { draw(); requestAnimationFrame(animate); }
+            animate();
+        }
+
+        // Existing scroll observers and smooth scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('animate');
+            });
+        });
+        document.querySelectorAll('.card').forEach(card => observer.observe(card));
+
+        window.addEventListener('load', () => {
+            initMatrix();
+        });
+
+        window.addEventListener('resize', () => {
+            const canvas = document.getElementById('matrix-bg');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>
